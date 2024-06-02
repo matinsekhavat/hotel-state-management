@@ -18,6 +18,7 @@ function Header() {
   function decreaseOptionsHandler(value) {
     setOptions((prev) => ({ ...prev, [value]: prev[value] - 1 }));
   }
+
   return (
     <div className="header">
       <div className="headerSearch">
@@ -53,6 +54,7 @@ function Header() {
               setOptions={setOptions}
               increaseOptionsHandler={increaseOptionsHandler}
               decreaseOptionsHandler={decreaseOptionsHandler}
+              setOpenOptions={setOpenOptions}
             />
           )}
 
