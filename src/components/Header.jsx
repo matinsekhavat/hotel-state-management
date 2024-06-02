@@ -1,8 +1,23 @@
 import { MdLocationOn } from "react-icons/md";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { useState } from "react";
+import GuestOptionList from "./GuestOptionList";
 function Header() {
   const [destination, setDestination] = useState("");
+  const [openOptions, setOpenOptions] = useState(false);
+  const [options, setOptions] = useState({
+    adult: 1,
+    children: 0,
+    room: 1,
+  });
+
+  // guest options
+  function increaseOptionsHandler(value) {
+    setOptions((prev) => ({ ...prev, [value]: prev[value] + 1 }));
+  }
+  function decreaseOptionsHandler(value) {
+    setOptions((prev) => ({ ...prev, [value]: prev[value] - 1 }));
+  }
   return (
     <div className="header">
       <div className="headerSearch">
@@ -26,7 +41,21 @@ function Header() {
         </div>
         <span className="seperator"></span>
         <div className="headerSearchItem">
-          <div id="optionDropDown">1 Adult &bull; 2 children &bull; 1 room</div>
+          <div
+            id="optionDropDown"
+            onClick={() => setOpenOptions((prev) => !prev)}
+          >
+            1 Adult &bull; 2 children &bull; 1 room
+          </div>
+          {openOptions && (
+            <GuestOptionList
+              options={options}
+              setOptions={setOptions}
+              increaseOptionsHandler={increaseOptionsHandler}
+              decreaseOptionsHandler={decreaseOptionsHandler}
+            />
+          )}
+
           <span className="seperator"></span>
         </div>
         <div className="headerSearchItem">
