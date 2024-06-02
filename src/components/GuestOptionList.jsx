@@ -15,7 +15,11 @@ function GuestOptionList({
     { id: 3, value: "room", minLimit: 1 },
   ];
   const optionsRef = useRef();
-  useOutsideClick(optionsRef, () => setOpenOptions((prev) => !prev));
+  useOutsideClick(
+    optionsRef,
+    () => setOpenOptions((prev) => !prev),
+    "optionDropDown"
+  );
 
   return (
     <div className="guestOptions" ref={optionsRef}>
