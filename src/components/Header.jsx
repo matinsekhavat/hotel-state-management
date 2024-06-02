@@ -4,6 +4,8 @@ import { useState } from "react";
 import GuestOptionList from "./GuestOptionList";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
 
 function Header() {
   const [destination, setDestination] = useState("");
@@ -13,7 +15,14 @@ function Header() {
     children: 0,
     room: 1,
   });
-
+  const [openDate, setOpenDate] = useState(false);
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "travelDate",
+    },
+  ]);
   // guest options
   function increaseOptionsHandler(value) {
     setOptions((prev) => ({ ...prev, [value]: prev[value] + 1 }));
@@ -39,8 +48,25 @@ function Header() {
           <span className="seperator"></span>
         </div>
         <div className="headerSearchItem">
-          <HiCalendar className="headerIcon dateIcon" />
-          <div className="dateDropDown">2024/04/04</div>
+          <div
+            className="dateDropDown"
+            onClick={() => setOpenDate((prev) => !prev)}
+          >
+            <HiCalendar className="headerIcon dateIcon" />
+            <span>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+              date[0].endDate,
+              "MM/dd/yyyy"
+            )} `}</span>
+          </div>
+          {openDate && (
+            <DateRange
+              ranges={date}
+              className="date"
+              onChange={(item) => setDate([item.travelDate])}
+              minDate={new Date()}
+              moveRangeOnFirstSelection={true}
+            />
+          )}
           <span className="seperator"></span>
         </div>
         <span className="seperator"></span>
