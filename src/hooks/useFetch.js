@@ -8,9 +8,9 @@ export default function useFetch(url, query = "") {
     async function getData() {
       try {
         setIsLoading(true);
-        console.log(`${url}${query}`);
-        const res = await fetch(`${url}${query}`);
-        const data = await res.json();
+
+        const res = await fetch(`${url}?${query}`);
+        const data = await res?.json();
         setData(data);
       } catch (error) {
         setData([]);
