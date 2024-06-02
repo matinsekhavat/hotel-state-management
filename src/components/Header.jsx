@@ -2,6 +2,9 @@ import { MdLocationOn } from "react-icons/md";
 import { HiCalendar, HiSearch } from "react-icons/hi";
 import { useState } from "react";
 import GuestOptionList from "./GuestOptionList";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+
 function Header() {
   const [destination, setDestination] = useState("");
   const [openOptions, setOpenOptions] = useState(false);
