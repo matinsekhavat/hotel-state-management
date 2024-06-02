@@ -103,6 +103,8 @@
 .dateDropDown {
   margin-left: 0.5rem;
   font-size: 0.8rem;
+  display: flex;
+  align-items: center;
 }
 
 .headerSearchBtn {
