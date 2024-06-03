@@ -4,24 +4,28 @@ import { useState } from "react";
 
 function Map() {
   const { hotelLoading, hotels } = useHotel();
-  const [position, setPosition] = useState([-26.37446, 29]);
+  const [position, setPosition] = useState([48.4, 2.9]);
   return (
     <div className="mapContainer">
       <MapContainer
         center={position}
         className="map"
-        zoom={13}
+        zoom={5}
         scrollWheelZoom={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {hotels.map((item) => (
+          <>
+            <Marker position={[item.latitude, item.longitude]}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </>
+        ))}
       </MapContainer>
     </div>
   );
