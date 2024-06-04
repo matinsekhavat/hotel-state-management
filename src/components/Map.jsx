@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 function Map() {
-  const { hotelLoading, hotels } = useHotel();
+  const { hotels } = useHotel();
   const [position, setPosition] = useState([48.4, 2.9]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
   useEffect(() => {
