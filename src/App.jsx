@@ -22,7 +22,10 @@ function App() {
               <Route index element={<Hotels />} />
               <Route path=":id" element={<SingleHotel />} />
             </Route>
-            <Route path="/bookmark" element={<BookmarkLayout />} />
+            <Route path="/bookmark" element={<BookmarkLayout />}>
+              <Route index element={<div>bookmark list</div>} />
+              <Route path="add" element={<div>add</div>} />
+            </Route>
           </Routes>
         </HotelsProvider>
       </BrowserRouter>
