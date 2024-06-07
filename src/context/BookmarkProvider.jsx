@@ -1,10 +1,39 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
+import useFetch from "../hooks/useFetch";
 
 const BookmarkContext = createContext();
-
+const BASE_URL = "http://localhost:5000";
 function BookmarkProvider({ children }) {
+  const { data: bookmarks, isLoading: bookmarksLoading } = useFetch(
+    `${BASE_URL}/bookmarks`
+  );
+  const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
+  const [currentBookmark, setCurrentBookmark] = useState({});
+
+  async function getBookmark(id) {
+    try {
+      setIsLoadingBookmark(true);
+      const res = await fetch(`${BASE_URL}/bookmark/${id}`);
+      const data = await res.json();
+      setCurrentBookmark(data);
+    } catch (error) {
+      throw new Error("sth wrong", error.message);
+    } finally {
+      setIsLoadingBookmark(false);
+    }
+  }
   return (
-    <BookmarkContext.Provider value={{}}>{children}</BookmarkContext.Provider>
+    <BookmarkContext.Provider
+      value={{
+        isLoadingBookmark,
+        currentBookmark,
+        getBookmark,
+        bookmarks,
+        bookmarksLoading,
+      }}
+    >
+      {children}
+    </BookmarkContext.Provider>
   );
 }
 
