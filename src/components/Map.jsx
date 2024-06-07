@@ -16,11 +16,9 @@ function Map({ locations }) {
   const lng = searchParams.get("lng");
   useEffect(() => {
     if (lat && lng) {
-      console.log(lat, lng);
       setPosition([lat, lng]);
     }
   }, [lat, lng]);
-  console.log(position);
 
   return (
     <div className="mapContainer">
