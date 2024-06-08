@@ -8,14 +8,19 @@ function BookmarkProvider({ children }) {
     `${BASE_URL}/bookmarks`
   );
   const [isLoadingBookmark, setIsLoadingBookmark] = useState(false);
-  const [currentBookmark, setCurrentBookmark] = useState({});
+  const [currentBookmark, setCurrentBookmark] = useState(null);
+  const [singleBookmark, setSingleBookmark] = useState([]);
+
+  function currentBookmarkHandler(id) {
+    setCurrentBookmark(id);
+  }
 
   async function getBookmark(id) {
     try {
       setIsLoadingBookmark(true);
       const res = await fetch(`${BASE_URL}/bookmark/${id}`);
       const data = await res.json();
-      setCurrentBookmark(data);
+      setSingleBookmark(data);
     } catch (error) {
       throw new Error("sth wrong", error.message);
     } finally {
@@ -27,6 +32,8 @@ function BookmarkProvider({ children }) {
       value={{
         isLoadingBookmark,
         currentBookmark,
+        currentBookmarkHandler,
+        singleBookmark,
         getBookmark,
         bookmarks,
         bookmarksLoading,
