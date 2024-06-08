@@ -4,7 +4,8 @@ import useUrlLocation from "../hooks/useUrlLocation";
 function AddNewBookmark() {
   const navigate = useNavigate();
   const [lat, lng] = useUrlLocation();
-  console.log(lat, lng);
+  const [cityName, setCityName] = useState("");
+  const [country, setCountry] = useState("");
 
   return (
     <div>
@@ -12,11 +13,23 @@ function AddNewBookmark() {
       <form className="form">
         <div className="formControl">
           <label htmlFor="cityName">cityName</label>
-          <input type="text" name="cityName" id="cityName" />
+          <input
+            type="text"
+            name="cityName"
+            id="cityName"
+            value={cityName}
+            onChange={(e) => setCityName(e.target.value)}
+          />
         </div>{" "}
         <div className="formControl">
           <label htmlFor="country">country</label>
-          <input type="text" name="country" id="country" />
+          <input
+            type="text"
+            name="country"
+            id="country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
         </div>
         <div className="buttons">
           <button
