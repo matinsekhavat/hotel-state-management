@@ -8,12 +8,11 @@ import {
 } from "react-leaflet";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import useUrlLocation from "../hooks/useUrlLocation";
 
 function Map({ locations }) {
   const [position, setPosition] = useState([48.4, 2.9]);
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const [lat, lng] = useUrlLocation();
   useEffect(() => {
     if (lat && lng) {
       setPosition([lat, lng]);
