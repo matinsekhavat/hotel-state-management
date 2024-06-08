@@ -1,14 +1,16 @@
 import { useEffect } from "react";
 import { useBookmark } from "../context/BookmarkProvider";
 import { useParams } from "react-router-dom";
+import Loader from "./Loader";
 
 function SingleBookmark() {
   const { id } = useParams();
-  const { currentBookmarkHandler } = useBookmark();
+  const { getBookmark, singleBookmark, isLoadingBookmark } = useBookmark();
   useEffect(() => {
-    currentBookmarkHandler(id);
-  }, [id, currentBookmarkHandler]);
-  return <div>SingleBookmark</div>;
+    getBookmark(id);
+  }, [id]);
+  if (isLoadingBookmark) return <Loader />;
+  return <div>{singleBookmark?.id}</div>;
 }
 
 export default SingleBookmark;
