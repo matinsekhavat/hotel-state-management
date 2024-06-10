@@ -7,7 +7,9 @@ import { useHotel } from "../context/HotelsProvider";
 function SingleHotel() {
   const { id } = useParams();
   const { currentHotelHandler } = useHotel();
-  const { data, isLoading } = useFetch(`http://localhost:5000/hotels/${id}`);
+  const { data, isLoading } = useFetch(
+    `https://hotel-managment-api.vercel.app/hotels/${id}`
+  );
   useEffect(() => {
     currentHotelHandler(id);
   }, [id, currentHotelHandler]);

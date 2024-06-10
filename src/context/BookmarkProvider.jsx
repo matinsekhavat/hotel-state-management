@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 
 const BookmarkContext = createContext();
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://hotel-managment-api.vercel.app";
 function BookmarkProvider({ children }) {
   const { data: bookmarks, isLoading: bookmarksLoading } = useFetch(
     `${BASE_URL}/bookmarks`

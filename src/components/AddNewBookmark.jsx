@@ -1,13 +1,38 @@
 import { useNavigate } from "react-router-dom";
 import useUrlLocation from "../hooks/useUrlLocation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+const BASE_REVERSE_GEOCODING_API =
+  "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 function AddNewBookmark() {
   const navigate = useNavigate();
   const [lat, lng] = useUrlLocation();
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
+  const [currentGeocoding, setCurrentGeocidng] = useState({});
+  const [isLoadingGeo, setIsLoadingGeo] = useState(false);
+  useEffect(() => {
+    async function fetchGeocoding() {
+      setIsLoadingGeo(true);
+      try {
+        const res = await fetch(
+          `${BASE_REVERSE_GEOCODING_API}?latitude=${lat}&longitude=${lng}&localityLanguage=en`
+        );
+        console.log(
+          `${BASE_REVERSE_GEOCODING_API}?latitude=${lat}&longitude=${lng}&localityLanguage=en`
+        );
 
+        const data = await res.json();
+        setCurrentGeocidng(data);
+      } catch (error) {
+        throw new Error("Sth wrong ", error.message);
+      } finally {
+        setIsLoadingGeo(false);
+      }
+      alert("به دلیل تحریمات این قسمت ناتمام ماند😪");
+    }
+    fetchGeocoding();
+  }, [lat, lng]);
   return (
     <div>
       <h2>Add new Bookmark✅</h2>
@@ -18,7 +43,7 @@ function AddNewBookmark() {
             type="text"
             name="cityName"
             id="cityName"
-            value={cityName}
+            value={currentGeocoding.city || ""}
             onChange={(e) => setCityName(e.target.value)}
           />
         </div>{" "}

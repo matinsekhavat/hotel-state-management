@@ -1,7 +1,10 @@
 import useFetch from "../hooks/useFetch";
 
 function LocationList() {
-  const { data, isLoading } = useFetch("http://localhost:5000/hotels", "");
+  const { data, isLoading } = useFetch(
+    "https://hotel-managment-api.vercel.app/hotels",
+    ""
+  );
   if (isLoading) return <p>data is loading..</p>;
   return (
     <div className="nearbyLoactions">

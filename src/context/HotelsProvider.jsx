@@ -14,7 +14,7 @@ export default function HotelsProvider({ children }) {
     setCurrentHotelId(id);
   }
   const { isLoading: hotelLoading, data: hotels } = useFetch(
-    "http://localhost:5000/hotels",
+    "https://hotel-managment-api.vercel.app/hotels",
     `q=${destination || ""}&accommodates_gte=${room || 1}`
   );
 
